@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:wght@400;500;600&display=swap");
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+}
+
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #7cd7eb;
+    flex-direction: column;
+}
+.container{
+    background: #f8f8f8;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 14px 1px 0 0 #000000;
+    margin-top: 10px;
+}
+.startGame{
+    display: grid;
+    gap:25px;
+    grid-template-columns: repeat(3, 100px );
+    grid-template-rows: repeat(1, 100px  );
+}
+.startGame .card{
+ font-size: 1.2rem;
+ user-select: none;
+}
+
+.card{
+    text-align: center;
+    cursor:pointer;
+    font-size: 2rem;
+
+}
+.card div{
+    width:100px;
+    height:100px;
+    line-height: 100px;
+    color: #78c1f3;
+    background: #fff;
+    border-radius: 10px;
+    transition: all 500ms ease-out;
+    backface-visibility: hidden;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
