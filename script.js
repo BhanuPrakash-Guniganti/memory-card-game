@@ -1,3 +1,5 @@
+
+
 const startGameContainer = document.querySelector(".startGame"),
 startGameCards = document.querySelectorAll(".startGame .card"),
 startGame = document.querySelector(".startGame button"),
@@ -31,6 +33,9 @@ startGameCards.forEach((element) => {
 startGame.addEventListener("click", (e) => {
     startGameContainer.style.display = "none";
     playground.style.display = "grid";
+    playground.style.gridTemplateColumns=`repeat(${columns} , 100px)`;
+    playground.style.gridTemplateRows=`repeat(${rows} , 100px)`;
+    createCards();
 });
 
 function createCards() {
@@ -45,19 +50,87 @@ function createCards() {
         "gamepad",
     ];
 
- shuffleCards([...cardArr, ...cardArr]);
+ shuffleCards([...cardArr.slice(0 , levels), ...cardArr.slice(0 , levels)]);
 }
 
 function shuffleCards(cards){
-    playground.innerHTML = " ";
+        playground.innerHTML = "";
+ /* console.log(cards);  */
 
     for (let i = 0; i < cards.length; i++){
         playground.innerHTML += `
-        <div class="card">
-          <div class="front">Normal</div>
-                <div class="back">3 * 4</div>
+        <div class="card" onclick='flipCard(this)'>
+          <div class="front"><i class="fa-solid fa-question"></i></div>
+        <div class="back"><i class="fa-solid fa-${cards[i]}"></i></div>
          </div>
 
          `;
     }
+    faRepeat.style.display = "block";
 }
+
+function flipCard(card){
+    if (cardOne != card) {
+    card.classList.add('flip');
+
+    if(!cardOne){
+        cardOne=card;
+        return;
+    }
+    cardTwo=card;
+    IsPreventClick = false;
+
+    let cardOneValue = cardOne.querySelector(".back").innerHTML,
+    cardTwoValue = cardTwo.querySelector(".back").innerHTML;
+    matchCards(cardOneValue, cardTwoValue);
+}
+}
+
+function matchCards(cardOneValue, cardTwoValue){
+    if(cardOneValue == cardTwoValue){
+
+        matched++;
+        if(matched == levels){
+            setTimeout(() => {
+                alert("Congratulations! You found all matches.");
+},500);
+        }
+
+
+    cardOne.classList.add("match");
+    cardTwo.classList.add("match");
+
+    cardOne.removeAttribute("onclick");
+    cardTwo.removeAttribute("onclick");
+
+    cardOne ="" , 
+    cardTwo ="";
+    IsPreventClick = true;
+    return;
+} else {
+
+setTimeout(() => {
+    cardOne.classList.add("shake");
+    cardTwo.classList.add("shake");
+},500);
+
+setTimeout(() => {
+    cardOne.classList.remove("shake" , "flip");
+    cardTwo.classList.remove("shake" , "flip");
+    cardOne ="" , 
+    cardTwo ="";
+    IsPreventClick = true;
+},1200);
+
+}
+}
+
+faRepeat.addEventListener("click", () => {
+    startGameContainer.style.display = "grid";
+    playground.style.display = "none";
+    faRepeat.style.display = "none";
+
+   (matched = 0) , (cardOne = ""), (cardTwo = ""), (IsPreventClick = true);
+
+
+})
