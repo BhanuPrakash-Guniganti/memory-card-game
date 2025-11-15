@@ -1,5 +1,3 @@
-
-
 const startGameContainer = document.querySelector(".startGame"),
 startGameCards = document.querySelectorAll(".startGame .card"),
 startGame = document.querySelector(".startGame button"),
@@ -50,11 +48,25 @@ function createCards() {
         "gamepad",
     ];
 
+    shuffleArray(cardArr);
+    console.log(cardArr);
+
  shuffleCards([...cardArr.slice(0 , levels), ...cardArr.slice(0 , levels)]);
 }
 
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+        
+    }
+};
+
 function shuffleCards(cards){
         playground.innerHTML = "";
+        shuffleArray(cards);
  /* console.log(cards);  */
 
     for (let i = 0; i < cards.length; i++){
